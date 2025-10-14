@@ -47,7 +47,7 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute >
               {' '}
               <Login />{' '}
             </ProtectedRoute>

@@ -21,7 +21,7 @@
     "react-router-dom": "^6.10.0",
     "redux-thunk": "^3.1.0",
     "typescript": "^5.3.3",
-    "uuid": "^9.0.0",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
@@ -88,10 +88,13 @@
   "scripts": {
     "start": "webpack serve --mode=development",
     "storybook": "storybook dev -p 6006",
+    "build": "webpack --mode=production",
     "build-storybook": "storybook build",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
     "lint:fix": "npm run lint -- --fix",
-    "format": "prettier ./src --write"
+    "format": "prettier ./src --write",
+		"test": "jest",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [

@@ -1,6 +1,6 @@
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useSelector } from '../../services/store';
 import { resetPasswordApi } from '@api';
 import { ResetPasswordUI } from '@ui-pages';
 
@@ -9,7 +9,9 @@ export const ResetPassword: FC = () => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const [error, setError] = useState<Error | null>(null);
-
+  const isAuthenticated = useSelector(
+    (state) => state.loginReducer.isAuthenticated
+  );
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     setError(null);
@@ -26,7 +28,9 @@ export const ResetPassword: FC = () => {
       navigate('/forgot-password', { replace: true });
     }
   }, [navigate]);
-
+  if (isAuthenticated) {
+    return <Navigate replace to={'/'} />;
+  }
   return (
     <ResetPasswordUI
       errorText={error?.message}

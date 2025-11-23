@@ -16,15 +16,15 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   price,
   orderModalData,
   onOrderClick,
-  closeOrderModal
+  closeOrderModal,
 }) => (
-  <section className={styles.burger_constructor}>
-    {constructorItems.bun ? (
+  <section className={styles.burger_constructor} data-cy='burger_constructor'>
+    {constructorItems.bun.name ? (
       <div className={`${styles.element} mb-4 mr-4`}>
         <ConstructorElement
           type='top'
           isLocked
-          text={`${constructorItems.bun.name} (верх)`}
+					text={`${constructorItems.bun.name} (верх)`}
           price={constructorItems.bun.price}
           thumbnail={constructorItems.bun.image}
         />
@@ -41,6 +41,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         constructorItems.ingredients.map(
           (item: TConstructorIngredient, index: number) => (
             <BurgerConstructorElement
+							id={item._id}
               ingredient={item}
               index={index}
               totalItems={constructorItems.ingredients.length}
@@ -56,7 +57,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         </div>
       )}
     </ul>
-    {constructorItems.bun ? (
+    {constructorItems.bun.name ? (
       <div className={`${styles.element} mt-4 mr-4`}>
         <ConstructorElement
           type='bottom'
@@ -80,20 +81,18 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
       </div>
       <Button
         htmlType='button'
-        type='primary'
+        type= {document.cookie ? 'primary' : 'secondary'} 
         size='large'
-        children='Оформить заказ'
+        children= {document.cookie ? 'Оформить заказ' : 'Войдите, чтобы оформить заказ'}
         onClick={onOrderClick}
       />
     </div>
-
     {orderRequest && (
       <Modal onClose={closeOrderModal} title={'Оформляем заказ...'}>
         <Preloader />
       </Modal>
     )}
-
-    {orderModalData && (
+    {orderModalData?._id && (
       <Modal
         onClose={closeOrderModal}
         title={orderRequest ? 'Оформляем заказ...' : ''}

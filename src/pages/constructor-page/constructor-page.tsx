@@ -1,5 +1,6 @@
-import { useSelector } from '../../services/store';
-
+import { useSelector, useDispatch } from '../../services/store';
+import { useEffect } from 'react';
+import { fetchIngredients } from '../../slices/ingredientsSlice'
 import styles from './constructor-page.module.css';
 
 import { BurgerIngredients } from '../../components';
@@ -9,8 +10,7 @@ import { FC } from 'react';
 
 export const ConstructorPage: FC = () => {
   /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
-
+	const isIngredientsLoading = useSelector(state => state.ingredients.isIngredientsLoading)
   return (
     <>
       {isIngredientsLoading ? (
@@ -31,3 +31,4 @@ export const ConstructorPage: FC = () => {
     </>
   );
 };
+
